@@ -1,3 +1,9 @@
+import { useState } from 'react'
+
+interface Props {
+  openModal: (url: string, title: string) => void
+}
+
 const projects = [
   {
     title: 'Marketing & Performance Strategist',
@@ -39,3 +45,64 @@ const projects = [
     ],
   },
 ]
+
+function Projects({ openModal }: Props) {
+  return (
+    <section id="projects" style={{ padding: '5rem 1rem', background: '#fff' }}>
+      <div style={{ maxWidth: 1152, margin: '0 auto' }}>
+
+        {/* Title */}
+        <div className="reveal" style={{ overflow: 'hidden', borderBottom: '3px solid #1e40af', paddingBottom: '.5rem', marginBottom: '2rem' }}>
+          <h2 style={{ fontSize: 'clamp(35px,5vw,58.5px)', fontWeight: 700, lineHeight: 1, WebkitTextFillColor: 'transparent', WebkitTextStroke: '2px #1e40af', color: 'transparent', margin: 0 }}>
+            Featured Projects
+          </h2>
+        </div>
+
+        {/* Case Study List */}
+        <div className="reveal" style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          {projects.map((p, i) => (
+            <div key={i} className="card" style={{ background: '#fff', border: '1px solid rgba(0,0,0,.08)', borderRadius: '.75rem', boxShadow: '0 1px 3px rgba(0,0,0,.06)', overflow: 'hidden' }}>
+              <div className="case-inner" style={{ display: 'grid', gridTemplateColumns: '2fr 3fr' }}>
+
+                {/* Image */}
+                <div className="case-image" style={{ position: 'relative', minHeight: '16rem', overflow: 'hidden' }}>
+                  <img src={p.image} alt={p.title} style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
+                </div>
+
+                {/* Body */}
+                <div style={{ padding: '1.5rem' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '.4rem', marginBottom: '.75rem' }}>
+                    {p.tags.map((tag, j) => (
+                      <span key={j} style={{ background: '#f1f5f9', color: '#475569', fontSize: '.75rem', padding: '.2rem .6rem', borderRadius: '9999px', fontWeight: 500 }}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '.25rem', marginTop: 0 }}>{p.title}</h3>
+                  <p style={{ fontSize: '.8rem', color: '#9ca3af', marginBottom: '1rem' }}>{p.meta}</p>
+                  <p style={{ fontSize: '.9rem', color: '#4b5563', marginBottom: '1rem' }}>{p.description}</p>
+                  <p style={{ fontWeight: 600, fontSize: '.85rem', color: '#374151', marginBottom: '.5rem' }}>Key Results:</p>
+                  <ul style={{ listStyle: 'none', margin: '0 0 1rem', padding: 0 }}>
+                    {p.results.map((r, j) => (
+                      <li key={j} style={{ fontSize: '.8rem', color: '#4b5563', display: 'flex', alignItems: 'flex-start', marginBottom: '.3rem' }}>
+                        <span style={{ color: '#1d4ed8', marginRight: '.5rem', fontSize: '1rem', lineHeight: 1.3, flexShrink: 0 }}>→</span>
+                        {r}
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={() => openModal(p.url, p.title)}
+                    style={{ background: 'transparent', color: '#030213', border: '1.5px solid rgba(0,0,0,.2)', borderRadius: '.5rem', padding: '.35rem .85rem', cursor: 'pointer', fontSize: '.8rem', fontWeight: 500 }}>
+                    View Case Study
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default Projects
