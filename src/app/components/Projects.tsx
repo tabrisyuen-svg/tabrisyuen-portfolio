@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 interface Props {
   openModal: (url: string, title: string) => void
 }
